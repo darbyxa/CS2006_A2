@@ -29,11 +29,11 @@ class testing(unittest.TestCase):
         with self.assertRaises(ValueError):
             x * y
 
-    def test_indempotent(self):
+    def test_idempotent(self):
         self.assertTrue(has_all_idempotents_property(1, 0))
         self.assertTrue(has_all_idempotents_property(2, 5))
         self.assertFalse(has_all_idempotents_property(5, 4))
 
-    def test_indempotentPairs(self):
+    def test_idempotentPairs(self):
         pairs = [(1, 0), (2,1)]
         self.assertEqual(find_idempotent_pairs(), pairs)

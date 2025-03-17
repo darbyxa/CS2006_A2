@@ -47,14 +47,14 @@ class InvertedInteger:
 
             return self.object == other.object and self.modulus == other.modulus and self.multiplier == other.multiplier
 
-# checks for indempotent x in Zn
+# checks for idempotent x in Zn
 def has_all_idempotents_property(n, a):
       for x in range(n):
             if ((x + x - a * x * x) % n) != x:
                   return False
       return True
 
-# finds indempotent pairs
+# finds idempotent pairs
 def find_idempotent_pairs():
       pairs = []
       for n in range(1, 51):
