@@ -5,11 +5,11 @@ class InvertedInteger:
       def __init__(self, object, modulus, multiplier):
             # checking if arguments are valid
             if modulus <= 0:
-                  print("Modulus must be positive.")
+                  raise ValueError("Modulus must be positive.")
             if (modulus <= object) or (object <= 0):
-                  print("object must be between 0 and modulus-1")
+                  raise ValueError("object must be between 0 and modulus-1")
             if (modulus <= multiplier) or (multiplier <= 0):
-                  print("multiplier must be between 0 and modulus-1")
+                  raise ValueError("multiplier must be between 0 and modulus-1")
             
             # initialising values
             self.object = object
@@ -23,13 +23,26 @@ class InvertedInteger:
 
       # defines addition = (x - y) mod n
       def __add__(self, other):
+            if not isinstance(other, InvertedInteger):
+                  raise TypeError("y must be of type InvertedInteger")
+            if (self.modulus != other.modulus) or (self.multiplier != other.multiplier):
+                  raise ValueError("Incompatible as modulus and multiplier must match")
+            
             result = (self.object - other.object) % self.modulus
             return InvertedInteger(result, self.modulus, self.multiplier)
 
       # defines multiplication = (x + y - a * x * y) mod n
       def __mul__(self, other):
+            if not isinstance(other, InvertedInteger):
+                  raise TypeError("y must be of type InvertedInteger")
+            if (self.modulus != other.modulus) or (self.multiplier != other.multiplier):
+                  raise ValueError("Incompatible as modulus and multiplier must match")
+
             result = (self.object + other.object - self.multiplier * self.object * other.object) % self.modulus
             return InvertedInteger(result, self.modulus, self.multiplier)
       
       def __eq__(self, other):
+            if not isinstance(other, InvertedInteger):
+                  raise TypeError("Values must be of type InvertedInteger")
+
             return self.object == other.object and self.modulus == other.modulus and self.multiplier == other.multiplier

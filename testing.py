@@ -19,3 +19,12 @@ class testing(unittest.TestCase):
     def test_mulSame(self):
         x = InvertedInteger(3, 7, 2)
         self.assertEqual(x * x, InvertedInteger(2, 7, 2))
+
+    def test_incompatible(self):
+        x = InvertedInteger(3, 7, 2)
+        y = InvertedInteger(5, 8, 2)
+
+        with self.assertRaises(ValueError):
+            x + y
+        with self.assertRaises(ValueError):
+            x * y
