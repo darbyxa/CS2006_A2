@@ -1,6 +1,6 @@
 import unittest
 
-from invertedInteger import InvertedInteger, has_all_idempotents_property, idempotent_pairs, has_commutative_inverted_multiplication, non_commutative_pairs
+from invertedInteger import InvertedInteger, has_all_idempotents_property, idempotent_pairs, has_commutative_inverted_multiplication, non_commutative_multiplication_pairs, has_commutative_inverted_addition, non_commutative_addition_pairs
 
 class testing(unittest.TestCase):
     def test_init(self):
@@ -45,7 +45,16 @@ class testing(unittest.TestCase):
         # self.assertFalse(has_commutative_inverted_multiplication(3, 1))
 
     def test_commutativePairs(self):
-        self.assertEqual(non_commutative_pairs(50), [])
+        self.assertEqual(non_commutative_multiplication_pairs(50), [])
         # self.assertEqual(non_commutative_pairs(2), [(2,0)])
         with self.assertRaises(ValueError):
-            non_commutative_pairs(78)
+            non_commutative_multiplication_pairs(78)
+
+    def test_has_commutative_inverted_addition(self):
+        self.assertTrue(has_commutative_inverted_addition(1, 0))
+        self.assertFalse(has_commutative_inverted_addition(5 ,4))
+
+    def test_find_non_commutative_addition_pairs(self):
+        self.assertEqual(non_commutative_multiplication_pairs(50), [])
+        with self.assertRaises(ValueError):
+            non_commutative_multiplication_pairs(51)

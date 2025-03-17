@@ -79,7 +79,7 @@ def has_commutative_inverted_multiplication(n, a):
       return True
 
 # checks for commutative pairs
-def non_commutative_pairs(max):
+def non_commutative_multiplication_pairs(max):
       if 1 <= max <= 50:
             pairs = []
             for n in range(1, max+1):
@@ -93,3 +93,21 @@ def non_commutative_pairs(max):
 # for pair in pairs:
 #       print("pair")
 #       print(pair)
+
+def has_commutative_inverted_addition(n, a):
+      for x in range(n):
+            for y in range(x, n):  # skips redundant calculations
+                  if ((x - y) % n) != ((y - x) % n):
+                        return False
+      return True
+
+
+def non_commutative_addition_pairs(max):
+      if 1 <= max <= 50:
+            pairs = []
+            for n in range(1, max+1):
+                  for a in range(n):
+                        if not has_commutative_inverted_addition(n, a):
+                              pairs.append((n, a))
+            return pairs
+      raise ValueError("n must be between 1 and 50 inclusive")
