@@ -46,3 +46,23 @@ class InvertedInteger:
                   raise TypeError("Values must be of type InvertedInteger")
 
             return self.object == other.object and self.modulus == other.modulus and self.multiplier == other.multiplier
+
+# checks for indempotent x in Zn
+def has_all_idempotents_property(n, a):
+      for x in range(n):
+            if ((x + x - a * x * x) % n) != x:
+                  return False
+      return True
+
+# finds indempotent pairs
+def find_idempotent_pairs():
+      pairs = []
+      for n in range(1, 51):
+            for a in range(n):
+                  if has_all_idempotents_property(n, a):
+                        pairs.append((n, a))
+      return pairs
+
+pairs = find_idempotent_pairs()
+for pair in pairs:
+      print(pair)
