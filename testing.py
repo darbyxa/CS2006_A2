@@ -1,6 +1,6 @@
 import unittest
 
-from invertedInteger import InvertedInteger, has_all_idempotents_property, find_idempotent_pairs
+from invertedInteger import InvertedInteger, has_all_idempotents_property, idempotent_pairs, has_commutative_inverted_multiplication, non_commutative_pairs
 
 class testing(unittest.TestCase):
     def test_init(self):
@@ -29,11 +29,23 @@ class testing(unittest.TestCase):
         with self.assertRaises(ValueError):
             x * y
 
-    def test_idempotent(self):
+    def test_idempotency(self):
         self.assertTrue(has_all_idempotents_property(1, 0))
         self.assertTrue(has_all_idempotents_property(2, 5))
         self.assertFalse(has_all_idempotents_property(5, 4))
 
     def test_idempotentPairs(self):
-        pairs = [(1, 0), (2,1)]
-        self.assertEqual(find_idempotent_pairs(), pairs)
+        self.assertEqual(idempotent_pairs(50), [(1, 0), (2,1)])
+        with self.assertRaises(ValueError):
+            idempotent_pairs(55)
+
+    def test_computativity(self):
+        self.assertTrue(has_commutative_inverted_multiplication(1, 0))
+        self.assertTrue(has_commutative_inverted_multiplication(2, 1))
+        # self.assertFalse(has_commutative_inverted_multiplication(3, 1))
+
+    def test_commutativePairs(self):
+        self.assertEqual(non_commutative_pairs(50), [])
+        # self.assertEqual(non_commutative_pairs(2), [(2,0)])
+        with self.assertRaises(ValueError):
+            non_commutative_pairs(78)

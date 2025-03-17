@@ -47,7 +47,7 @@ class InvertedInteger:
 
             return self.object == other.object and self.modulus == other.modulus and self.multiplier == other.multiplier
 
-# checks for idempotent x in Zn
+# checks for idempotency x in Zn
 def has_all_idempotents_property(n, a):
       for x in range(n):
             if ((x + x - a * x * x) % n) != x:
@@ -55,14 +55,41 @@ def has_all_idempotents_property(n, a):
       return True
 
 # finds idempotent pairs
-def find_idempotent_pairs():
-      pairs = []
-      for n in range(1, 51):
-            for a in range(n):
-                  if has_all_idempotents_property(n, a):
-                        pairs.append((n, a))
-      return pairs
+def idempotent_pairs(max):
+      if 1 <= max <= 50:
+            pairs = []
+            for n in range(1, max+1):
+                  for a in range(n):
+                        if has_all_idempotents_property(n, a):
+                              pairs.append((n, a))
+            return pairs
+      raise ValueError("n must be between 1 and 50 inclusive")
 
-pairs = find_idempotent_pairs()
-for pair in pairs:
-      print(pair)
+# pairs = idempotent_pairs()
+# for pair in pairs:
+#       print(pair)
+
+
+# checks for commutativity in Zn
+def has_commutative_inverted_multiplication(n, a):
+      for x in range(n):
+            for y in range(x, n):   # start from x to avoid redundant calculations
+                  if ((x + y - a * x * y) % n) != ((y + x - a * y * x) % n):
+                        return False
+      return True
+
+# checks for commutative pairs
+def non_commutative_pairs(max):
+      if 1 <= max <= 50:
+            pairs = []
+            for n in range(1, max+1):
+                  for a in range(n):
+                        if not has_commutative_inverted_multiplication(n, a):
+                              pairs.append((n,a))
+            return pairs
+      raise ValueError("n must be between 1 and 50 inclusive")
+
+# pairs = non_commutative_pairs(2)
+# for pair in pairs:
+#       print("pair")
+#       print(pair)
