@@ -41,6 +41,7 @@ class InvertedInteger:
             result = (self.object + other.object - self.multiplier * self.object * other.object) % self.modulus
             return InvertedInteger(result, self.modulus, self.multiplier)
       
+      # Checks if object values are equal
       def __eq__(self, other):
             if not isinstance(other, InvertedInteger):
                   raise TypeError("Values must be of type InvertedInteger")
@@ -97,7 +98,7 @@ def non_commutative_multiplication_pairs(max):
 # checks for commutativity in addition
 def has_commutative_inverted_addition(n, alpha):
       for x in range(n):
-            for y in range(x, n):  # skips redundant calculations
+            for y in range(x, n):  # begins at x to skip redundant calculations
                   if ((x - y) % n) != ((y - x) % n):
                         return False
       return True
@@ -118,17 +119,20 @@ def has_associative_inverted_multiplication(n, alpha):
       for x in range(n):
             for y in range(n):
                   for z in range(n):
+                        # calculates left part of the equation
                         xy = (x + y - alpha * x * y) % n
                         l = (xy + z - alpha * xy * z) % n
 
+                        # calculates right part of the equation
                         yz = (y + z - alpha * y * z) % n
                         r = (x + yz - alpha * x * yz) % n
 
+                        # checks if they equal
                         if l != r:
                               return False
       return True
 
-# check for associative pairs
+# check for associative multiplication pairs
 def associative_multiplication_pairs(max):
       if 1 <= max <= 20:
             pairs = []
@@ -144,17 +148,20 @@ def has_associative_inverted_addition(n, alpha):
       for x in range(n):
             for y in range(n):
                   for z in range(n):
+                        # calculates left part of the equation
                         xy = (x - y) % n
                         l = (xy - z) % n
 
+                        # calculates right part of the equation
                         yz = (y - z) % n
                         r = (x - yz) % n
 
+                        # checks if they equal
                         if l != r:
                               return False
       return True
 
-# check for non associative pairs
+# check for associative addition pairs
 def associative_addition_pairs(max):
       if 1 <= max <= 20:
             pairs = []
@@ -170,18 +177,21 @@ def has_inverted_right_distributivity(n, alpha):
       for x in range(n):
             for y in range(n):
                   for z in range(n):
+                        # calculates left part of the equation
                         xy = (x - y) % n
                         l = (xy + z - alpha * xy * z) % n
 
+                        # calculates right part of the equation
                         xz = (x + z - alpha * x * z) % n
                         yz = (y + z - alpha * y * z) % n
                         r = (xz - yz) % n
 
+                        # checks if they equal
                         if l != r:
                               return False
       return True
 
-# check for non associative pairs
+# check for distributive pairs
 def distributivity_pairs(max):
       if 1 <= max <= 20:
             pairs = []
