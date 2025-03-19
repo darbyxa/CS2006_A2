@@ -102,7 +102,7 @@ def has_commutative_inverted_addition(n, alpha):
                         return False
       return True
 
-
+# finds commutative pairs in addition
 def commutative_addition_pairs(max):
       if 1 <= max <= 50:
             pairs = []
@@ -128,7 +128,7 @@ def has_associative_inverted_multiplication(n, alpha):
                               return False
       return True
 
-# check for non associative pairs
+# check for associative pairs
 def associative_multiplication_pairs(max):
       if 1 <= max <= 20:
             pairs = []
@@ -161,6 +161,33 @@ def associative_addition_pairs(max):
             for n in range(1, max+1):
                   for alpha in range(n):
                         if has_associative_inverted_addition(n, alpha):
+                              pairs.append((n, alpha))
+            return pairs
+      raise ValueError("n must be between 1 and 20 inclusive")
+
+# checks for right distributivity
+def has_inverted_right_distributivity(n, alpha):
+      for x in range(n):
+            for y in range(n):
+                  for z in range(n):
+                        xy = (x - y) % n
+                        l = (xy + z - alpha * xy * z) % n
+
+                        xz = (x + z - alpha * x * z) % n
+                        yz = (y + z - alpha * y * z) % n
+                        r = (xz - yz) % n
+
+                        if l != r:
+                              return False
+      return True
+
+# check for non associative pairs
+def distributivity_pairs(max):
+      if 1 <= max <= 20:
+            pairs = []
+            for n in range(1, max+1):
+                  for alpha in range(n):
+                        if has_inverted_right_distributivity(n, alpha):
                               pairs.append((n, alpha))
             return pairs
       raise ValueError("n must be between 1 and 20 inclusive")
