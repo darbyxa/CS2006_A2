@@ -119,7 +119,7 @@ def has_associative_inverted_multiplication(n, alpha):
             for y in range(n):
                   for z in range(n):
                         xy = (x + y - alpha * x * y) % n
-                        l = (xy + y - alpha * xy * y) % n
+                        l = (xy + z - alpha * xy * z) % n
 
                         yz = (y + z - alpha * y * z) % n
                         r = (x + yz - alpha * x * yz) % n
@@ -135,6 +135,32 @@ def associative_multiplication_pairs(max):
             for n in range(1, max+1):
                   for alpha in range(n):
                         if has_associative_inverted_multiplication(n, alpha):
+                              pairs.append((n, alpha))
+            return pairs
+      raise ValueError("n must be between 1 and 20 inclusive")
+
+# checks for associativity in addition
+def has_associative_inverted_addition(n, alpha):
+      for x in range(n):
+            for y in range(n):
+                  for z in range(n):
+                        xy = (x - y) % n
+                        l = (xy - z) % n
+
+                        yz = (y - z) % n
+                        r = (x - yz) % n
+
+                        if l != r:
+                              return False
+      return True
+
+# check for non associative pairs
+def associative_addition_pairs(max):
+      if 1 <= max <= 20:
+            pairs = []
+            for n in range(1, max+1):
+                  for alpha in range(n):
+                        if has_associative_inverted_addition(n, alpha):
                               pairs.append((n, alpha))
             return pairs
       raise ValueError("n must be between 1 and 20 inclusive")
