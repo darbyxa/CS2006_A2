@@ -48,9 +48,9 @@ class InvertedInteger:
             return self.object == other.object and self.modulus == other.modulus and self.multiplier == other.multiplier
 
 # checks for idempotency x in Zn
-def has_all_idempotents_property(n, a):
+def has_all_idempotents_property(n, alpha):
       for x in range(n):
-            if ((x + x - a * x * x) % n) != x:
+            if ((x + x - alpha * x * x) % n) != x:
                   return False
       return True
 
@@ -59,9 +59,9 @@ def idempotent_pairs(max):
       if 1 <= max <= 50:
             pairs = []
             for n in range(1, max+1):
-                  for a in range(n):
-                        if has_all_idempotents_property(n, a):
-                              pairs.append((n, a))
+                  for alpha in range(n):
+                        if has_all_idempotents_property(n, alpha):
+                              pairs.append((n, alpha))
             return pairs
       raise ValueError("n must be between 1 and 50 inclusive")
 
@@ -70,22 +70,22 @@ def idempotent_pairs(max):
 #       print(pair)
 
 
-# checks for commutativity in Zn
-def has_commutative_inverted_multiplication(n, a):
+# checks for commutativity in multiplication
+def has_commutative_inverted_multiplication(n, alpha):
       for x in range(n):
             for y in range(x, n):   # start from x to avoid redundant calculations
-                  if ((x + y - a * x * y) % n) != ((y + x - a * y * x) % n):
+                  if ((x + y - alpha * x * y) % n) != ((y + x - alpha * y * x) % n):
                         return False
       return True
 
-# checks for commutative pairs
+# checks for non commutative pairs
 def non_commutative_multiplication_pairs(max):
       if 1 <= max <= 50:
             pairs = []
             for n in range(1, max+1):
-                  for a in range(n):
-                        if not has_commutative_inverted_multiplication(n, a):
-                              pairs.append((n,a))
+                  for alpha in range(n):
+                        if not has_commutative_inverted_multiplication(n, alpha):
+                              pairs.append((n, alpha))
             return pairs
       raise ValueError("n must be between 1 and 50 inclusive")
 
@@ -94,7 +94,8 @@ def non_commutative_multiplication_pairs(max):
 #       print("pair")
 #       print(pair)
 
-def has_commutative_inverted_addition(n, a):
+# checks for commutativity in addition
+def has_commutative_inverted_addition(n, alpha):
       for x in range(n):
             for y in range(x, n):  # skips redundant calculations
                   if ((x - y) % n) != ((y - x) % n):
@@ -102,12 +103,38 @@ def has_commutative_inverted_addition(n, a):
       return True
 
 
-def non_commutative_addition_pairs(max):
+def commutative_addition_pairs(max):
       if 1 <= max <= 50:
             pairs = []
             for n in range(1, max+1):
-                  for a in range(n):
+                  for alpha in range(n):
                         if not has_commutative_inverted_addition(n, a):
-                              pairs.append((n, a))
+                              pairs.append((n, alpha))
             return pairs
       raise ValueError("n must be between 1 and 50 inclusive")
+
+# checks for associativity in multiplication
+def has_associative_inverted_multiplication(n, alpha):
+      for x in range(n):
+            for y in range(n):
+                  for z in range(n):
+                        xy = (x + y - alpha * x * y) % n
+                        l = (xy + y - alpha * xy * y) % n
+
+                        yz = (y + z - alpha * y * z) % n
+                        r = (x + yz - alpha * x * yz) % n
+
+                        if l != r:
+                              return False
+      return True
+
+# check for non associative pairs
+def associative_multiplication_pairs(max):
+      if 1 <= max <= 20:
+            pairs = []
+            for n in range(1, max+1):
+                  for alpha in range(n):
+                        if has_associative_inverted_multiplication(n, alpha):
+                              pairs.append((n, alpha))
+            return pairs
+      raise ValueError("n must be between 1 and 20 inclusive")

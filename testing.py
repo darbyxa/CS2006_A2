@@ -1,6 +1,6 @@
 import unittest
 
-from invertedInteger import InvertedInteger, has_all_idempotents_property, idempotent_pairs, has_commutative_inverted_multiplication, non_commutative_multiplication_pairs, has_commutative_inverted_addition, non_commutative_addition_pairs
+from invertedInteger import InvertedInteger, has_all_idempotents_property, idempotent_pairs, has_commutative_inverted_multiplication, non_commutative_multiplication_pairs, has_commutative_inverted_addition, commutative_addition_pairs, has_associative_inverted_multiplication, associative_multiplication_pairs
 
 class testing(unittest.TestCase):
     def test_init(self):
@@ -39,6 +39,7 @@ class testing(unittest.TestCase):
         with self.assertRaises(ValueError):
             idempotent_pairs(55)
 
+    # commutative multiplication
     def test_computativity(self):
         self.assertTrue(has_commutative_inverted_multiplication(1, 0))
         self.assertTrue(has_commutative_inverted_multiplication(2, 1))
@@ -50,11 +51,22 @@ class testing(unittest.TestCase):
         with self.assertRaises(ValueError):
             non_commutative_multiplication_pairs(78)
 
+    # commutative addition
     def test_has_commutative_inverted_addition(self):
         self.assertTrue(has_commutative_inverted_addition(1, 0))
         self.assertFalse(has_commutative_inverted_addition(5 ,4))
 
-    def test_find_non_commutative_addition_pairs(self):
+    def test_find_commutative_addition_pairs(self):
         self.assertEqual(non_commutative_multiplication_pairs(50), [])
         with self.assertRaises(ValueError):
             non_commutative_multiplication_pairs(51)
+
+    # associative
+    def test_has_associative_inverted_multiplication(self):
+        self.assertTrue(has_associative_inverted_multiplication(1, 0))
+        self.assertFalse(has_associative_inverted_multiplication(2, 1))
+        self.assertFalse(has_associative_inverted_multiplication(3, 2))
+
+    def test_find_associative_pairs(self):
+        self.assertEqual(associative_multiplication_pairs(2), [(1, 0)])
+        # self.assertEqual(associative_multiplication_pairs(4), [(1, 0), (2, 1), (3, 2), (4, 3)])
