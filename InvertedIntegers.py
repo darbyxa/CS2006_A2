@@ -1,3 +1,5 @@
+import time
+
 class InvertedInteger:
     def __init__(self, obj, modulus, multiplier):
         if modulus <= 0:
@@ -55,7 +57,69 @@ class InvertedIntegers:
         return (InvertedInteger(i, self.modulus, self.multiplier) for i in range(self.modulus))
 
 
+# Property (1): Idempotent Property Check Using Iterators
+def has_all_idempotents_property(n, alpha):
+    return all((x + x - alpha * x * x) % n == x for x in range(n))
 
+# Property (2): Commutativity in Multiplication
+def has_commutative_inverted_multiplication(n, alpha):
+    return all(
+        (x + y - alpha * x * y) % n == (y + x - alpha * y * x) % n
+        for x in range(n) for y in range(x, n)
+    )
+
+# Property (3): Commutativity in Addition
+def has_commutative_inverted_addition(n, alpha):
+    return all(
+        (x - y) % n == (y - x) % n
+        for x in range(n) for y in range(x, n)
+    )
+
+# Property (4): Associativity in Multiplication
+def has_associative_inverted_multiplication(n, alpha):
+    return all(
+        ((x + y - alpha * x * y) + z - alpha * (x + y - alpha * x * y) * z) % n ==
+        (x + (y + z - alpha * y * z) - alpha * x * (y + z - alpha * y * z)) % n
+        for x in range(n) for y in range(n) for z in range(n)
+    )
+
+# Property (5): Associativity in Addition
+def has_associative_inverted_addition(n, alpha):
+    return all(
+        ((x - y) - z) % n == (x - (y - z)) % n
+        for x in range(n) for y in range(n) for z in range(n)
+    )
+
+# Property (6): Right Distributivity
+def has_inverted_right_distributivity(n, alpha):
+    return all(
+        ((x - y) + z - alpha * (x - y) * z) % n ==
+        ((x + z - alpha * x * z) - (y + z - alpha * y * z)) % n
+        for x in range(n) for y in range(n) for z in range(n)
+    )
+
+# Performance Testing
+def compare_performance():
+    test_n = 5  # Small test modulus for comparison
+    test_alpha = 2
+
+    print("\nPerformance comparison using direct loops vs iterators:\n")
+
+    start_time = time.time()
+    results_loops = [(x, has_all_idempotents_property(test_n, test_alpha)) for x in range(test_n)]
+    end_time = time.time()
+    print(f"Direct Loop Execution Time: {end_time - start_time:.6f} seconds")
+
+    start_time = time.time()
+    results_iterators = [(x, has_all_idempotents_property(test_n, test_alpha)) for x in InvertedIntegers(test_n, test_alpha)]
+    end_time = time.time()
+    print(f"Iterator Execution Time: {end_time - start_time:.6f} seconds")
+
+
+# Testing the iterator with example 
 print("Iterating over InvertedIntegers(3,2):")
 for x in InvertedIntegers(3,2):
     print(x)
+
+# Running performance comparison
+compare_performance()
