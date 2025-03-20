@@ -1,4 +1,5 @@
 class InvertedInteger:
+      #checking
       # object - integer value in Zn
       # modulus - modulus n is a positive integer
       # multiplier - multiplier alpha in Zn
