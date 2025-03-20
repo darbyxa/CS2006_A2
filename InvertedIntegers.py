@@ -108,12 +108,12 @@ def compare_performance():
     start_time = time.time()
     results_loops = [(x, has_all_idempotents_property(test_n, test_alpha)) for x in range(test_n)]
     end_time = time.time()
-    print(f"Direct Loop Execution Time: {end_time - start_time:.6f} seconds")
+    print("Direct Loop Execution Time:", round(end_time - start_time, 6), "seconds")
 
     start_time = time.time()
     results_iterators = [(x, has_all_idempotents_property(test_n, test_alpha)) for x in InvertedIntegers(test_n, test_alpha)]
     end_time = time.time()
-    print(f"Iterator Execution Time: {end_time - start_time:.6f} seconds")
+    print("Iterator Execution Time:", round(end_time - start_time, 6), "seconds")
 
 
 # Testing the iterator with example 
