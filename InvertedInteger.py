@@ -83,19 +83,24 @@ class InvertedInteger:
 
       # define multiplication = (x + y - a * x * y) mod n
       def __mul__(self, other):
-            """
-            Performs custom multiplication operation in Zn.
+        """
+        Performs custom multiplication operation in Zn.
 
-            Multiplication is defined as: (x + y - α * x * y) mod n
+        Multiplication is defined as: (x + y - α * x * y) mod n
 
-            Example:
-            >>> x = InvertedInteger(3, 7, 2)
-            >>> y = InvertedInteger(5, 7, 2)
-            >>> x * y
-            <6 mod 7 | 2>
-            """
-            result = (self.obj + other.obj - self.multipler * self.obj * other.obj) % self.modulus
-            return InvertedInteger(result, self.modulus, self.multiplier)
+        Example:
+        >>> x = InvertedInteger(3, 7, 2)
+        >>> y = InvertedInteger(5, 7, 2)
+        >>> x * y
+        <6 mod 7 | 2>
+        """
+        if not isinstance(other, InvertedInteger):
+            raise TypeError("Operand must be of type InvertedInteger")
+        if self.modulus != other.modulus or self.multiplier != other.multiplier:
+            raise ValueError("Incompatible modulus and multiplier")
+
+        result = (self.object + other.object - self.multiplier * self.object * other.object) % self.modulus
+        return InvertedInteger(result, self.modulus, self.multiplier)
       
       def __eq__(self, other):
         """
