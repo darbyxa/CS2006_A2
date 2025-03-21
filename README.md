@@ -58,6 +58,7 @@ Output:
 [[0, 1, 2, 3, 4], [1, 0, 4, 3, 2], [2, 4, 1, 3, 0], [3, 3, 3, 3, 3], [4, 2, 0, 3, 1]]
 
 Example5 - roots of unity:
+from invertedInteger import InvertedInteger
 roots = [(n, alpha, x) for n in range(1, 6) for alpha in range(n) for x in range(n-1) if (InvertedInteger(x, n, alpha) * InvertedInteger(x, n, alpha)) == InvertedInteger(1, n, alpha)]
 print(roots)
 
