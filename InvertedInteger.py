@@ -50,6 +50,11 @@ class InvertedInteger:
         '<3 mod 7 | 2>'
         """
         return f"<{self.object} mod {self.modulus} | {self.multiplier}>"
+    
+    def __hash__(self):
+        """Hash function for InvertedInteger, needed for using in sets and dicts."""
+        return hash((self.object, self.modulus, self.multiplier))
+
 
     def __add__(self, other):
         """
