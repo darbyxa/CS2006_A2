@@ -96,6 +96,25 @@ class InvertedInteger:
             """
             result = (self.obj + other.obj - self.multipler * self.obj * other.obj) % self.modulus
             return InvertedInteger(result, self.modulus, self.multiplier)
+      
+      def __eq__(self, other):
+        """
+        Equality check for two InvertedInteger objects.
+
+        Example:
+        >>> x = InvertedInteger(3, 7, 2)
+        >>> y = InvertedInteger(3, 7, 2)
+        >>> x == y
+        True
+        >>> z = InvertedInteger(5, 7, 2)
+        >>> x == z
+        False
+        """
+        if not isinstance(other, InvertedInteger):
+            return False
+        return (self.object == other.object and
+                self.modulus == other.modulus and
+                self.multiplier == other.multiplier)
 
 if __name__ == "__main__":
       doctest.testmod()
