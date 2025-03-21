@@ -133,7 +133,7 @@ def multiplicative_span(S):
     <5 mod 7 | 2>
     <4 mod 7 | 2>
     """
-    # Initialize the span with the generators in S
+    # Initialise the span with the generators in S
     span = set(S)
 
     # Set of valid products we want to include in the span (3, 5, 6, 4 mod 7)
@@ -154,18 +154,16 @@ def multiplicative_span(S):
                 if new_element.object in valid_objects:
                     new_elements.add(new_element)
 
-        # If no new elements are generated, stop the loop
         if new_elements <= span:
             break
         span.update(new_elements)
         current_span = new_elements
 
-    # Sort the elements of the span by their 'object' value for consistency
     sorted_span = sorted(span, key=lambda x: x.object)
 
-    # Return the span
+
     return sorted_span
 
 if __name__ == "__main__":
-    print("Running doctests...") 
+    print("Running doctests...") #debugging purposes
     doctest.testmod()
