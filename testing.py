@@ -88,3 +88,6 @@ class testing(unittest.TestCase):
     # def test_distributivityPairs(self):
         # self.assertEqual(distributivity_pairs(2), [(1, 0), (2, 0), (2, 1)])
         # self.assertEqual(distributivity_pairs(1), [(1, 0)])
+
+if __name__ == "__main__": 
+       unittest.main()  
