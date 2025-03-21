@@ -6,9 +6,9 @@ class InvertedInteger:
             # checks if arguments are valid
             if modulus <= 0:
                   raise ValueError("Modulus must be positive.")
-            if (modulus <= value) or (value <= 0):
+            if not (0 <= value < modulus):
                   raise ValueError("Value must be between 0 and modulus-1")
-            if (modulus <= multiplier) or (multiplier <= 0):
+            if not (0 <= multiplier < modulus):
                   raise ValueError("multiplier must be between 0 and modulus-1")
             
             # initialises values
