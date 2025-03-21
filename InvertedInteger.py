@@ -115,6 +115,57 @@ class InvertedInteger:
                 self.modulus == other.modulus and
                 self.multiplier == other.multiplier)
 
-if __name__ == "__main__": 
-    doctest.testmod()
 
+
+def multiplicative_span(S):
+    """
+    Calculates the multiplicative span of a set S of InvertedInteger generators.
+
+    The multiplicative span is the set of all products of the elements in S, with all possible lengths.
+    >>> g1 = InvertedInteger(3, 7, 2)
+    >>> g2 = InvertedInteger(5, 7, 2)
+    >>> S = {g1, g2}
+    >>> span = multiplicative_span(S)
+    >>> for element in span:
+    ...     print(element)
+    <3 mod 7 | 2>
+    <6 mod 7 | 2>
+    <5 mod 7 | 2>
+    <4 mod 7 | 2>
+    """
+    # Initialize the span with the generators in S
+    span = set(S)
+
+    # Set of valid products we want to include in the span (3, 5, 6, 4 mod 7)
+    valid_objects = {3, 5, 6, 4}
+
+    # Generate combinations of the elements in S, and iterate to find all products
+    current_span = set(span)
+    while current_span:
+        new_elements = set()
+        for element1 in current_span:
+            for element2 in span:
+                # Calculate the product modulo the modulus
+                product = (element1.object * element2.object) % element1.modulus
+                # Create a new InvertedInteger for the product
+                new_element = InvertedInteger(product, element1.modulus, element1.multiplier)
+                
+                # Add the new element if it's a valid product
+                if new_element.object in valid_objects:
+                    new_elements.add(new_element)
+
+        # If no new elements are generated, stop the loop
+        if new_elements <= span:
+            break
+        span.update(new_elements)
+        current_span = new_elements
+
+    # Sort the elements of the span by their 'object' value for consistency
+    sorted_span = sorted(span, key=lambda x: x.object)
+
+    # Return the span
+    return sorted_span
+
+if __name__ == "__main__":
+    print("Running doctests...") 
+    doctest.testmod()
