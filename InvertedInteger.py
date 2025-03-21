@@ -1,7 +1,7 @@
 import doctest
 
 class InvertedInteger:
-      """
+    """
     Represents an element in Zn with a custom inverted integer operation.
 
     Attributes:
@@ -14,53 +14,44 @@ class InvertedInteger:
         >>> print(x)
         <3 mod 7 | 2>
         >>> y = InvertedInteger(5, 7, 2)
-        >>> x + y
+        >>> print(x + y)
         <5 mod 7 | 2>
-        >>> x * y
+        >>> print(x * y)
         <6 mod 7 | 2>
     """
-      # obj - integer value in Zn
-      # modulus - modulus n is a positive integer
-      # multiplier - multiplier alpha in Zn
-      def __init__(self, obj, modulus, multiplier):
+    def __init__(self, obj, modulus, multiplier):
+        """
+        Initializes an `InvertedInteger` object.
 
-            """
-             Initializes an `InvertedInteger` object.
+        >>> i = InvertedInteger(3, 7, 2)
+        >>> i.object
+        3
+        >>> i.modulus
+        7
+        >>> i.multiplier
+        2
+        """
+        if modulus <= 0:
+            raise ValueError("Modulus must be positive.")
+        if not (0 <= obj < modulus):
+            raise ValueError("obj must be between 0 and modulus-1")
+        if not (0 <= multiplier < modulus):
+            raise ValueError("multiplier must be between 0 and modulus-1")
+        
+        self.object = obj
+        self.modulus = modulus
+        self.multiplier = multiplier
 
-             >>> i = InvertedInteger(3, 7, 2)
-             >>> i.object
-             3
-            >>> i.modulus
-             7
-             >>> i.multiplier
-            2
-             """
-            # checking if arguments are valid
-            if modulus <= 0:
-                  print("Modulus must be positive.")
-            if (modulus <= obj) or (obj <= 0):
-                  print("obj must be between 0 and modulus-1")
-            if (modulus <= multiplier) or (multiplier <= 0):
-                  print("multiplier must be between 0 and modulus-1")
-            
-            # initialising values
-            self.object = obj
-            self.modulus = modulus
-            self.multiplier = multiplier
-
-
-      # overwrite "print"
-      def __str__(self):
-            """
+    def __str__(self):
+        """
         Returns the string representation of the object.
 
         >>> str(InvertedInteger(3, 7, 2))
         '<3 mod 7 | 2>'
         """
-            return "<" + str(self.object) + " mod " + str(self.modulus) + " | " + str(self.multiplier) + " >"
+        return f"<{self.object} mod {self.modulus} | {self.multiplier}>"
 
-       
-      def __add__(self, other):
+    def __add__(self, other):
         """
         Performs custom addition operation in Zn.
 
@@ -69,7 +60,7 @@ class InvertedInteger:
         Example:
         >>> x = InvertedInteger(3, 7, 2)
         >>> y = InvertedInteger(5, 7, 2)
-        >>> x + y
+        >>> print(x + y)
         <5 mod 7 | 2>
         """
         if not isinstance(other, InvertedInteger):
@@ -80,9 +71,7 @@ class InvertedInteger:
         result = (self.object - other.object) % self.modulus
         return InvertedInteger(result, self.modulus, self.multiplier)
 
-
-      # define multiplication = (x + y - a * x * y) mod n
-      def __mul__(self, other):
+    def __mul__(self, other):
         """
         Performs custom multiplication operation in Zn.
 
@@ -91,7 +80,7 @@ class InvertedInteger:
         Example:
         >>> x = InvertedInteger(3, 7, 2)
         >>> y = InvertedInteger(5, 7, 2)
-        >>> x * y
+        >>> print(x * y)
         <6 mod 7 | 2>
         """
         if not isinstance(other, InvertedInteger):
@@ -101,8 +90,8 @@ class InvertedInteger:
 
         result = (self.object + other.object - self.multiplier * self.object * other.object) % self.modulus
         return InvertedInteger(result, self.modulus, self.multiplier)
-      
-      def __eq__(self, other):
+
+    def __eq__(self, other):
         """
         Equality check for two InvertedInteger objects.
 
@@ -121,5 +110,6 @@ class InvertedInteger:
                 self.modulus == other.modulus and
                 self.multiplier == other.multiplier)
 
-if __name__ == "__main__":
-      doctest.testmod()
+if __name__ == "__main__": 
+    doctest.testmod()
+
