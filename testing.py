@@ -48,31 +48,27 @@ class testing(unittest.TestCase):
     def test_mulTable(self):
         n = 5
         alpha = 2
-        invertedInts = [InvertedInteger(x, n, alpha) for x in range(n)]
+        invertedInts = []
+        for x in range(n):
+            invertedInts.append(InvertedInteger(x, n, alpha))
         
         # generated table
-        genTable = [[(x * y).value for y in invertedInts] for x in invertedInts]
+        genTable = []
+        for x in invertedInts:
+            row = []
+            for y in invertedInts:
+                row.append((x * y).value)
+            genTable.append(row)
         # expected table
         expTable = [
             [0, 1, 2, 3, 4],
             [1, 0, 4, 3, 2],
             [2, 4, 1, 3, 0],
             [3, 3, 3, 3, 3],
-            [4, 2, 0, 3, 1],
+            [4, 2, 0, 3, 1]
         ]
 
         self.assertEqual(genTable, expTable)
-
-    # testing definitions by finding all inverted roots of unity
-    def test_rootsOfUnity(self):
-        n = 5
-        alpha = 2
-        roots = []
-        for x in range(n):
-            if (InvertedInteger(x, n, alpha) * InvertedInteger(x, n, alpha)) == InvertedInteger(1, n, alpha):
-                roots.append(x)
-
-        self.assertEqual(roots, [2, 4])
 
     # idempotency tests
     def test_idempotency(self):

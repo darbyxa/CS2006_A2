@@ -47,7 +47,12 @@ Example3 - checking associativity:
 from invertedInteger import has_associative_inverted_multiplication
 print([(n, alpha) for n in range(1, 6) for alpha in range(n) if has_associative_inverted_multiplication(n, alpha)])
 
-Example4 - creating a multiplication table:
+Example4 - finding non commutative pairs:
+from invertedInteger import has_commutative_inverted_multiplication
+pairs = [(n, alpha) for n in range(1, 3) for alpha in range(n) if not has_commutative_inverted_multiplication(n, alpha)]
+print(pairs)
+
+Example5 - creating a multiplication table:
 from invertedInteger import InvertedInteger
 n, alpha = 5, 2
 invertedInts = [InvertedInteger(x, n, alpha) for x in range(n)]
@@ -57,13 +62,6 @@ print(table)
 Output:
 [[0, 1, 2, 3, 4], [1, 0, 4, 3, 2], [2, 4, 1, 3, 0], [3, 3, 3, 3, 3], [4, 2, 0, 3, 1]]
 
-Example5 - roots of unity:
-from invertedInteger import InvertedInteger
-roots = [(n, alpha, x) for n in range(1, 6) for alpha in range(n) for x in range(n-1) if (InvertedInteger(x, n, alpha) * InvertedInteger(x, n, alpha)) == InvertedInteger(1, n, alpha)]
-print(roots)
-
-Output:
-[(3, 1, 1), (4, 1, 1), (5, 0, 3), (5, 1, 1), (5, 2, 2)]
 
 ## Running automated tests
 Execute the following command in the terminal to run all unit tests:
