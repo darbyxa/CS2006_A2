@@ -53,5 +53,12 @@ Execute the following command in the terminal to run all unit tests:
 
 - v flag gives a more verbose result
 
+## Running docTests
+Execute the following command in the terminal to run all unit tests:
+
+    python -m doctest InvertedInteger.py -v
+    
+- v flag gives a more verbose result
+
 ## Ending note
 Hope you find this module helpful!
