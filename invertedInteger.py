@@ -7,7 +7,7 @@ class InvertedInteger:
             if modulus <= 0:
                   raise ValueError("Modulus must be positive.")
             if (modulus <= value) or (value <= 0):
-                  raise ValueError("value must be between 0 and modulus-1")
+                  raise ValueError("Value must be between 0 and modulus-1")
             if (modulus <= multiplier) or (multiplier <= 0):
                   raise ValueError("multiplier must be between 0 and modulus-1")
             
@@ -99,7 +99,7 @@ def commutative_addition_pairs(max):
             pairs = []
             for n in range(1, max+1):
                   for alpha in range(n):
-                        if not has_commutative_inverted_addition(n, a):
+                        if not has_commutative_inverted_addition(n, alpha):
                               pairs.append((n, alpha))
             return pairs
       raise ValueError("n must be between 1 and 50 inclusive")
