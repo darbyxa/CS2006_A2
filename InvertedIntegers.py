@@ -16,7 +16,6 @@ class InvertedInteger:
         self.multiplier = multiplier
 
     def __str__(self):
-        # A string representation of the object for displaying purposes
         return f"<{self.object} mod {self.modulus} | {self.multiplier}>"
 
     def __mul__(self, other):
@@ -66,7 +65,6 @@ def inverted_roots_of_unity(n, alpha):
 
     for x in range(n):
         xi = InvertedInteger(x, n, alpha)
-        # Check if x * x == unity, i.e., if x^2 ≡ 1 mod n
         if xi * xi == unity:
             roots.append(xi)
 
